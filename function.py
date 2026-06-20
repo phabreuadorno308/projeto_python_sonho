@@ -21,7 +21,7 @@ def calculate_velocity(target: tuple, current: tuple) -> list:
 
     if dif_ang > 0:
         avan_ang = alfa * dif_ang
-        vel = [0, avan_ang]
+        vel = [0.0, avan_ang]
     elif dif_ang < 0:
         avan_ang = -(alfa * dif_ang)
         vel = [0.0, avan_ang]
