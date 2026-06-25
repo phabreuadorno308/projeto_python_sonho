@@ -10,7 +10,7 @@ def calculate_velocity(target: tuple, current: tuple) -> list:
     """
     
     # Constantes
-    alfa = 0.5 # -> quão angular vai
+    alfa = 0.5 # -> quão angular vai - isso é um ganho - k
     beta = 0.5 # -> quão linear vai
 
     # vel = [vx, w] -> Padrão nula
@@ -22,19 +22,22 @@ def calculate_velocity(target: tuple, current: tuple) -> list:
     if dif_ang > 0:
         avan_ang = alfa * dif_ang
         vel = [0.0, avan_ang]
-    elif dif_ang < 0:
+        return vel
+
+    if dif_ang < 0:
         avan_ang = -(alfa * dif_ang)
         vel = [0.0, avan_ang]
-    
-    # Ajusta avanço linear
-    else:
-        delta_x = target[0] - current[0]
-        delta_y = target[1] - current[1]
-        dif_lin = (delta_x**2 + delta_y**2)**(1/2)
+        return vel
 
-        if dif_lin != 0:
-            avan_lin = beta * dif_lin
-            vel = [avan_lin, 0.0]
+    # Ajusta avanço linear
+    #só vem pra cá qunaod o dif ang é zero, NUNCA é zero, precisamos de uma tolerância
+    delta_x = target[0] - current[0]
+    delta_y = target[1] - current[1]
+    dif_lin = (delta_x**2 + delta_y**2)**(1/2)
+
+    if dif_lin != 0:
+        avan_lin = beta * dif_lin
+        vel = [avan_lin, 0.0]
 
     return vel
 
